@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Passport Pals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <filter id="wc" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2.6" xChannelSelector="R" yChannelSelector="G"/></filter>
+  <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 .35  0 0 0 0 .28  0 0 0 0 .2  0 0 0 .12 0"/></filter>
+  <filter id="blur6"><feGaussianBlur stdDeviation="8"/></filter>
+</defs></svg>
+
+<div id="app">
+  <!-- TITLE -->
+  <section class="screen" id="s-title">
+    <img class="titleimg" src="photos/title.jpg" alt="Linus and Wesley with their passports on top of the world">
+    <div class="titlecard">
+      <h1>Passport Pals</h1>
+      <p class="sub">Our Family’s World Adventures</p>
+      <button class="big primary" id="playBtn"><span>Let’s go!</span></button>
+    </div>
+    <button class="lockbtn" data-gate>Grown-ups <i class="ring"></i></button>
+  </section>
+
+  <!-- CHILD SELECT -->
+  <section class="screen" id="s-pick">
+    <h2 class="pickh">Who is exploring today?</h2>
+    <div class="pickrow" id="pickRow"></div>
+    <button class="lockbtn" data-gate>Grown-ups <i class="ring"></i></button>
+  </section>
+
+  <!-- WORLD MAP -->
+  <section class="screen" id="s-map">
+    <header class="bar">
+      <button class="chip who" id="whoChip"></button>
+      <div class="barbtns">
+        <button class="ibtn" data-go="passport" aria-label="Passport"></button>
+        <button class="ibtn" data-go="book" aria-label="Animal book"></button>
+        <button class="ibtn" data-go="memories" aria-label="Family photos"></button>
+      </div>
+    </header>
+    <div class="mapscroll" id="mapScroll"><div class="mapbox" id="mapBox"></div></div>
+    <p class="maptip" id="mapTip">Tap a place to fly there!</p>
+    <button class="lockbtn small" data-gate>Grown-ups <i class="ring"></i></button>
+  </section>
+
+  <!-- DESTINATION INTRO -->
+  <section class="screen" id="s-intro">
+    <div class="introscene" id="introScene"></div>
+    <div class="introcard">
+      <figure class="polaroid" id="introPhoto"></figure>
+      <div class="introtext">
+        <h2 id="introName"></h2>
+        <p id="introText"></p>
+        <div class="row gap">
+          <button class="big primary" id="exploreBtn"><span>Let’s explore!</span></button>
+          <button class="ibtn round" id="introSay" aria-label="Hear it again"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTINATION EXPLORATION -->
+  <section class="screen" id="s-dest">
+    <header class="bar">
+      <button class="ibtn round" data-go="map" aria-label="World map"></button>
+      <h2 class="bartitle" id="destTitle"></h2>
+      <div class="stampprog" id="stampProg"></div>
+    </header>
+    <div class="scenewrap"><div class="scene" id="destScene"></div></div>
+    <p class="scenetip" id="sceneTip">Tap the animals and the sparkles!</p>
+    <div class="tiles" id="gameTiles"></div>
+    <div class="destfoot"><button class="chip" id="destPhotos"></button></div>
+  </section>
+
+  <!-- GAME -->
+  <section class="screen" id="s-game">
+    <header class="bar">
+      <button class="ibtn round" id="gBack" aria-label="Back"></button>
+      <h2 class="bartitle" id="gTitle"></h2>
+      <div class="gprog" id="gProg"></div>
+      <button class="ibtn round" id="gHint" aria-label="Hint"></button>
+      <button class="ibtn round" id="gSay" aria-label="Say it again"></button>
+    </header>
+    <div class="garea" id="gArea"></div>
+    <div class="gkid" id="gKid"></div>
+  </section>
+
+  <!-- ENCYCLOPEDIA -->
+  <section class="screen" id="s-book">
+    <header class="bar"><button class="ibtn round" data-go="map" aria-label="Back"></button><h2 class="bartitle">Animal Book</h2><span class="count" id="bookCount"></span></header>
+    <div class="bookgrid" id="bookGrid"></div>
+  </section>
+
+  <!-- PASSPORT -->
+  <section class="screen" id="s-passport">
+    <header class="bar"><button class="ibtn round" data-go="map" aria-label="Back"></button><h2 class="bartitle" id="ppTitle">Passport</h2></header>
+    <div class="passport" id="passportBody"></div>
+  </section>
+
+  <!-- MEMORIES -->
+  <section class="screen" id="s-memories">
+    <header class="bar"><button class="ibtn round" id="memBack" aria-label="Back"></button><h2 class="bartitle">Our Family Adventures</h2></header>
+    <div class="memtabs scroll" id="memTabs"></div>
+    <div class="memacts"><button class="chip" id="whereBtn">Where were we?</button><button class="chip" id="postBtn">Make a postcard</button></div>
+    <div class="gallery" id="gallery"></div>
+    <h3 class="sect" id="pcHead" hidden>Our postcards</h3>
+    <div class="postcards" id="postcards"></div>
+  </section>
+
+  <!-- PARENT -->
+  <section class="screen grown" id="s-parent">
+    <header class="bar"><button class="ibtn round" id="parentBack" aria-label="Back"></button><h2 class="bartitle">Parent area</h2></header>
+    <nav class="ptabs scroll" id="pTabs"></nav>
+    <div class="pbody" id="pBody"></div>
+  </section>
+</div>
+
+<div class="modal" id="modal" hidden><div class="mbox" id="mbox"></div></div>
+<div class="toast" id="toast" hidden></div>
+
+<script src="js/data.js"></script>
+<script src="js/art.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/games.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
